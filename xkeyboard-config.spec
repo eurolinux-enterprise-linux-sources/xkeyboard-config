@@ -7,7 +7,7 @@
 Summary: X Keyboard Extension configuration data
 Name: xkeyboard-config
 Version: 2.11
-Release: 1%{?gitdate:.%{gitdate}git%{gitversion}}%{?dist}
+Release: 3%{?gitdate:.%{gitdate}git%{gitversion}}%{?dist}
 License: MIT
 Group: User Interface/X
 URL: http://www.freedesktop.org/wiki/Software/XKeyboardConfig
@@ -19,6 +19,11 @@ Source2:    commitid
 %else
 Source0: http://xorg.freedesktop.org/archive/individual/data/xkeyboard-config/%{name}-%{version}.tar.bz2
 %endif
+
+# Bug 923160 - Removal of /usr/share/X11/xkb/keymap.dir breaks NX
+Patch01: 0001-Revert-Remove-.dir-generation.patch
+# Bug 1164507 - Broken ru-phonetic layout since 2.11 -- update to 2.12
+Patch02: 0001-Back-to-previous-ru-phonetic-keyboard-layout.patch
 
 BuildArch: noarch
 
@@ -33,6 +38,8 @@ BuildRequires: automake autoconf libtool pkgconfig
 BuildRequires: glib2-devel
 BuildRequires: xorg-x11-proto-devel libX11-devel
 BuildRequires: libxslt
+# RHEL6 special: xkbcomp is required for keymap.dir generation (#923160)
+BuildRequires: xorg-x11-xkb-utils
 
 # NOTE: Any packages that need xkbdata to be installed should be using
 # the following "Requires: xkbdata" virtual provide, and not directly depending
@@ -104,6 +111,10 @@ make install DESTDIR=$RPM_BUILD_ROOT INSTALL="install -p"
 rm -f $RPM_BUILD_ROOT%{_datadir}/X11/xkb/compiled
 %find_lang %{name} 
 
+# Bug 923160 - directory keymap/ was removed upstream in 77d09b66a so we
+# don't autogenerate. For 923160, an empty file is enough
+touch $RPM_BUILD_ROOT%{_datadir}/X11/xkb/keymap.dir
+
 # Create filelist
 {
    FILESLIST=${PWD}/files.list
@@ -129,6 +140,13 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/pkgconfig/xkeyboard-config.pc
 
 %changelog
+* Fri Jan 16 2015 Peter Hutterer <peter.hutterer@redhat.com> 2.11-3
+- Install the keymap.dir file as well (#923160)
+
+* Tue Dec 16 2014 Peter Hutterer <peter.hutterer@redhat.com> 2.11-2
+- Reinstate generation of *.dir files (#923160)
+- Revert to previous ru(phonetic) layout (#1164507)
+
 * Thu Apr 24 2014 Adam Jackson <ajax@redhat.com> 2.11-1
 - xkeyboard-config 2.11
 

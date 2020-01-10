@@ -1,0 +1,161 @@
+From 8350f6c5294844d6accd22f932a1f25169975b24 Mon Sep 17 00:00:00 2001
+From: Peter Hutterer <peter.hutterer@who-t.net>
+Date: Tue, 25 Nov 2014 10:01:34 +1000
+Subject: [PATCH] Revert "Remove *.dir generation"
+
+This reverts commit 67804fe9398ac1bda8bbed40dcf65dd7ce734364.
+
+Conflicts:
+	symbols/Makefile.am
+---
+ compat/Makefile.am   |  7 +++++--
+ configure.ac         |  5 +++++
+ geometry/Makefile.am |  6 ++++--
+ keycodes/Makefile.am |  6 ++++--
+ symbols/Makefile.am  |  6 ++++--
+ types/Makefile.am    |  6 ++++--
+ xkbrules.am          | 14 ++++++++++++++
+ 7 files changed, 40 insertions(+), 10 deletions(-)
+ create mode 100644 xkbrules.am
+
+diff --git a/compat/Makefile.am b/compat/Makefile.am
+index e2026af..aeed932 100644
+--- a/compat/Makefile.am
++++ b/compat/Makefile.am
+@@ -1,6 +1,6 @@
+ compatdir = $(xkb_base)/compat
+ 
+-compat_DATA = \
++dist_compat_DATA = \
+ accessx basic caps complete \
+ iso9995 \
+ japan ledcaps \
+@@ -9,4 +9,7 @@ misc mousekeys \
+ olpc pc pc98 xfree86 \
+ xtest README
+ 
+-EXTRA_DIST = $(compat_DATA)
++dir_data = $(dist_compat_DATA)
++
++include $(top_srcdir)/xkbrules.am
++
+diff --git a/configure.ac b/configure.ac
+index a0886a6..044f966 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -14,6 +14,11 @@ AC_PROG_SED
+ 
+ AC_SUBST(VERSION)
+ 
++AC_PATH_PROG([XKBCOMP], [xkbcomp], [not_found])
++if test x$XKBCOMP = xnot_found ; then
++        AC_ERROR([xkbcomp is required to install the xkb data files])
++fi
++
+ AC_ARG_WITH( xkb_base,
+              [AS_HELP_STRING([--with-xkb-base=DIR],[XKB base path @<:@DATADIR/X11/xkb@:>@])],
+              xkb_base="$withval", 
+diff --git a/geometry/Makefile.am b/geometry/Makefile.am
+index 069a953..2a83d16 100644
+--- a/geometry/Makefile.am
++++ b/geometry/Makefile.am
+@@ -2,7 +2,7 @@ SUBDIRS = digital_vndr  sgi_vndr
+ 
+ geomdir = $(xkb_base)/geometry
+ 
+-geom_DATA = \
++dist_geom_DATA = \
+ amiga ataritt chicony \
+ dell everex fujitsu \
+ hhk hp keytronic kinesis \
+@@ -10,4 +10,6 @@ macintosh microsoft nec nokia \
+ northgate pc sanwa sony thinkpad \
+ sun typematrix winbook README
+ 
+-EXTRA_DIST = $(geom_DATA)
++dir_data = $(dist_geom_DATA)
++
++include $(top_srcdir)/xkbrules.am
+diff --git a/keycodes/Makefile.am b/keycodes/Makefile.am
+index 78a0355..d0c42cf 100644
+--- a/keycodes/Makefile.am
++++ b/keycodes/Makefile.am
+@@ -2,7 +2,7 @@ SUBDIRS = digital_vndr sgi_vndr
+ 
+ keycodesdir = $(xkb_base)/keycodes
+ 
+-keycodes_DATA = \
++dist_keycodes_DATA = \
+ aliases \
+ amiga \
+ ataritt \
+@@ -19,4 +19,6 @@ xfree86 \
+ xfree98 \
+ README
+ 
+-EXTRA_DIST = $(keycodes_DATA)
++dir_data = $(dist_keycodes_DATA)
++
++include $(top_srcdir)/xkbrules.am
+diff --git a/symbols/Makefile.am b/symbols/Makefile.am
+index 509a549..d417835 100644
+--- a/symbols/Makefile.am
++++ b/symbols/Makefile.am
+@@ -1,7 +1,7 @@
+ SUBDIRS = digital_vndr fujitsu_vndr hp_vndr macintosh_vndr nec_vndr nokia_vndr sharp_vndr sgi_vndr sony_vndr sun_vndr xfree68_vndr
+ 
+ symbolsdir = $(xkb_base)/symbols
+-symbols_DATA = \
++dist_symbols_DATA = \
+ af al \
+ am apl ara \
+ at az \
+@@ -36,4 +36,6 @@ za \
+ altwin capslock compose ctrl empty eurosign rupeesign group inet \
+ keypad kpdl level3 level5 nbsp olpc shift srvr_ctrl typo
+ 
+-EXTRA_DIST = $(symbols_DATA)
++dir_data = $(dist_symbols_DATA)
++
++include $(top_srcdir)/xkbrules.am
+diff --git a/types/Makefile.am b/types/Makefile.am
+index 0084184..6da3ccb 100644
+--- a/types/Makefile.am
++++ b/types/Makefile.am
+@@ -1,9 +1,11 @@
+ typesdir = $(xkb_base)/types
+ 
+-types_DATA = \
++dist_types_DATA = \
+ basic cancel caps \
+ complete default extra \
+ iso9995 level5 mousekeys nokia numpad \
+ pc README
+ 
+-EXTRA_DIST = $(types_DATA)
++dir_data = $(dist_types_DATA)
++
++include $(top_srcdir)/xkbrules.am
+diff --git a/xkbrules.am b/xkbrules.am
+new file mode 100644
+index 0000000..d8ee781
+--- /dev/null
++++ b/xkbrules.am
+@@ -0,0 +1,14 @@
++# Common rules for building *.dir files in all xkb subdirectories
++# Replaces Imake's MakeXkbDir() rule
++# svu: taken from xkbdata
++
++dist_dir_DATA = $(subdir).dir
++
++dirdir = $(xkb_base)
++
++$(subdir).dir: $(dir_data)
++	-rm -f $@
++	$(XKBCOMP) -lfhlpR -o $@ '*'
++
++CLEANFILES = $(subdir).dir
++
+-- 
+2.1.0
+
