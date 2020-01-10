@@ -1,19 +1,27 @@
 # INFO: Package contains data-only, no binaries, so no debuginfo is needed
 %define debug_package %{nil}
 
+#global gitdate 20110415
+#global gitversion 19a0026b5
+
 Summary: X Keyboard Extension configuration data
 Name: xkeyboard-config
-Version: 2.3
-Release: 1%{?dist}
+Version: 2.6
+Release: 6%{?gitdate:.%{gitdate}git%{gitversion}}%{?dist}
 License: MIT
 Group: User Interface/X
 URL: http://www.freedesktop.org/wiki/Software/XKeyboardConfig
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+%if 0%{?gitdate}
+Source0:    %{name}-%{gitdate}.tar.bz2
+Source1:    make-git-snapshot.sh
+Source2:    commitid
+%else
+Source0: http://xorg.freedesktop.org/archive/individual/data/xkeyboard-config/%{name}-%{version}.tar.bz2
+%endif
 
-Source0: ftp://ftp.x.org/pub/individual/data/%{name}/%{name}-%{version}.tar.bz2
-
-# Revert Sinhala changes, need newer x11proto/libX11 than we have
-Patch1: 0001-Revert-Updated-lk-layout.patch
+# Bug 826220 - Tilda is now a dead key (for accented chars)
+Patch01: 0001-Reverting-broken-fix-for-is-keyboard.patch
 
 BuildArch: noarch
 
@@ -23,6 +31,11 @@ BuildRequires: xkbcomp
 BuildRequires: perl(XML::Parser)
 BuildRequires: intltool
 BuildRequires: gettext
+BuildRequires: git-core
+BuildRequires: automake autoconf libtool pkgconfig
+BuildRequires: glib2-devel
+BuildRequires: xorg-x11-proto-devel libX11-devel
+BuildRequires: libxslt
 
 # NOTE: Any packages that need xkbdata to be installed should be using
 # the following "Requires: xkbdata" virtual provide, and not directly depending
@@ -43,11 +56,40 @@ This package contains configuration data used by the X Keyboard Extension
 (XKB), which allows selection of keyboard layouts when using a graphical 
 interface. 
 
+%package devel
+Summary: Development files for %{name}
+Group: User Interface/X
+Requires: %{name} = %{version}-%{release}
+Requires: pkgconfig
+
+%description devel
+%{name} development package
+
 %prep
-%setup -q -n %{name}-%{version}
-%patch1 -p1 -b .sinhala-revert
+%setup -q -n %{name}-%{?gitdate:%{gitdate}}%{!?gitdate:%{version}}
+
+%if 0%{?gitdate}
+git checkout -b fedora
+sed -i 's/git/&+ssh/' .git/config
+if [ -z "$GIT_COMMITTER_NAME" ]; then
+    git config user.email "x@fedoraproject.org"
+    git config user.name "Fedora X Ninjas"
+fi
+git commit -am "%{name} %{version}"
+%else
+git init
+if [ -z "$GIT_COMMITTER_NAME" ]; then
+    git config user.email "x@fedoraproject.org"
+    git config user.name "Fedora X Ninjas"
+fi
+git add .
+git commit -a -q -m "%{name} %{version} baseline."
+%endif
+
+git am -p1 %{patches} < /dev/null
 
 %build
+AUTOPOINT="intltoolize --automake --copy" autoreconf -v --force --install || exit 1
 %configure \
     --enable-compat-rules \
     --with-xkb-base=%{_datadir}/X11/xkb \
@@ -55,12 +97,12 @@ interface.
     --with-xkb-rules-symlink=xorg \
     --disable-runtime-deps
 
-make
+make %{?_smp_mflags}
 
 %install
 rm -rf $RPM_BUILD_ROOT
+make install DESTDIR=$RPM_BUILD_ROOT INSTALL="install -p"
 
-make install DESTDIR=$RPM_BUILD_ROOT
 # Remove unnecessary symlink
 rm -f $RPM_BUILD_ROOT%{_datadir}/X11/xkb/compiled
 %find_lang %{name} 
@@ -69,8 +111,8 @@ rm -f $RPM_BUILD_ROOT%{_datadir}/X11/xkb/compiled
 {
    FILESLIST=${PWD}/files.list
    pushd $RPM_BUILD_ROOT
-   find ./usr/share/X11/xkb -type d | sed -e "s/^\./%dir /g" > $FILESLIST
-   find ./usr/share/X11/xkb -type f | sed -e "s/^\.//g" >> $FILESLIST
+   find .%{_datadir}/X11/xkb -type d | sed -e "s/^\./%dir /g" > $FILESLIST
+   find .%{_datadir}/X11/xkb -type f | sed -e "s/^\.//g" >> $FILESLIST
    popd
 }
 
@@ -79,12 +121,26 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -f files.list -f %{name}.lang
 %defattr(-,root,root,-)
+%doc AUTHORS README NEWS TODO COPYING CREDITS docs/README.* docs/HOWTO.*
 %{_datadir}/X11/xkb/rules/xorg
 %{_datadir}/X11/xkb/rules/xorg.lst
 %{_datadir}/X11/xkb/rules/xorg.xml
+%{_mandir}/man7/xkeyboard-config.*
+
+%files devel
+%defattr(-,root,root,-)
 %{_datadir}/pkgconfig/xkeyboard-config.pc
 
 %changelog
+* Fri Nov 02 2012 Peter Hutterer <peter.hutterer@redhat.com> 2.6-6
+- Rebuild with patched xkbcomp (related #872057)
+
+* Thu Nov 01 2012 Peter Hutterer <peter.hutterer@redhat.com> - 2.6-5
+- Fix {?dist} tag (#871460)
+
+* Tue Aug 28 2012 Peter Hutterer <peter.hutterer@redhat.com> 2.6-4
+- Merge from F18 (#835284)
+
 * Wed Jun 29 2011 Peter Hutterer <peter.hutterer@redhat.com> 2.3-1
 - xkeyboard-config 2.3 (#713863)
 - Revert 2.3 Sinhala (lk) changes, they require newer x11proto/libX11

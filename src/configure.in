@@ -1,7 +1,16 @@
-AC_INIT(xkeyboard-config, 2.3)
+AC_INIT(xkeyboard-config, 2.6)
 AC_CONFIG_SRCDIR(rules/base.xml.in)
 AM_INIT_AUTOMAKE([foreign dist-bzip2])
 AM_MAINTAINER_MODE
+
+# Require X.Org macros 1.12 or later for XORG_WITH_XSLTPROC
+m4_ifndef([XORG_MACROS_VERSION],
+          [m4_fatal([must install xorg-macros 1.12 or later before
+          running autoconf/autogen])])
+XORG_MACROS_VERSION(1.12)
+XORG_MANPAGE_SECTIONS
+XORG_WITH_XSLTPROC
+AC_PROG_SED
 
 AC_SUBST(VERSION)
 
@@ -61,11 +70,12 @@ AM_CONDITIONAL(USE_COMPAT_RULES, test "x$enable_compat_rules" = "xyes")
 # ****
 AC_PROG_INTLTOOL(0.30)
 
+AM_GNU_GETTEXT_VERSION([0.18.1])
+AM_GNU_GETTEXT([external])
+
 GETTEXT_PACKAGE=xkeyboard-config
 AC_SUBST(GETTEXT_PACKAGE)
 AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE, "$GETTEXT_PACKAGE", [Gettext package])
-
-AM_GLIB_GNU_GETTEXT
 
 ALL_LINGUAS="af az bg ca crh cs da de el en_GB eo es fi fr gl hu id it ja ka ko ky lt nb nl pl ro ru rw sk sl sq sr sv tr uk vi zh_CN zh_TW"
 
@@ -81,11 +91,6 @@ geometry/sgi_vndr/Makefile
 keycodes/Makefile
 keycodes/digital_vndr/Makefile
 keycodes/sgi_vndr/Makefile
-keymap/Makefile
-keymap/digital_vndr/Makefile
-keymap/sgi_vndr/Makefile
-keymap/sun_vndr/Makefile
-semantics/Makefile
 rules/Makefile
 rules/bin/Makefile
 rules/compat/Makefile
@@ -102,8 +107,8 @@ symbols/sun_vndr/Makefile
 symbols/xfree68_vndr/Makefile
 types/Makefile
 xkeyboard-config.pc
-xkeyboard-config.spec
 docs/Makefile
+man/Makefile
 ])
 
 echo '***********************************************************'

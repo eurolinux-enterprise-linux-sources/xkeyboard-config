@@ -32,9 +32,11 @@ POST_INSTALL = :
 NORMAL_UNINSTALL = :
 PRE_UNINSTALL = :
 POST_UNINSTALL = :
-subdir = keymap/sgi_vndr
-DIST_COMMON = $(dist_keymap_DATA) $(srcdir)/Makefile.am \
-	$(srcdir)/Makefile.in
+build_triplet = @build@
+host_triplet = @host@
+@HAVE_XSLTPROC_TRUE@am__append_1 = -e 's|__xkb_base__|$(xkb_base)|g'
+subdir = man
+DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/configure.in
 am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
@@ -65,18 +67,20 @@ am__nobase_list = $(am__nobase_strip_setup); \
 am__base_list = \
   sed '$$!N;$$!N;$$!N;$$!N;$$!N;$$!N;$$!N;s/\n/ /g' | \
   sed '$$!N;$$!N;$$!N;$$!N;s/\n/ /g'
-am__installdirs = "$(DESTDIR)$(keymapdir)"
-DATA = $(dist_keymap_DATA)
+am__installdirs = "$(DESTDIR)$(miscmandir)"
+DATA = $(miscman_DATA)
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
 ACLOCAL = @ACLOCAL@
+ADMIN_MAN_DIR = @ADMIN_MAN_DIR@
+ADMIN_MAN_SUFFIX = @ADMIN_MAN_SUFFIX@
 ALL_LINGUAS = @ALL_LINGUAS@
 AMTAR = @AMTAR@
+APP_MAN_DIR = @APP_MAN_DIR@
+APP_MAN_SUFFIX = @APP_MAN_SUFFIX@
 AUTOCONF = @AUTOCONF@
 AUTOHEADER = @AUTOHEADER@
 AUTOMAKE = @AUTOMAKE@
 AWK = @AWK@
-CATALOGS = @CATALOGS@
-CATOBJEXT = @CATOBJEXT@
 CC = @CC@
 CCDEPMODE = @CCDEPMODE@
 CFLAGS = @CFLAGS@
@@ -88,36 +92,49 @@ DEFS = @DEFS@
 DEPDIR = @DEPDIR@
 DEPS_CFLAGS = @DEPS_CFLAGS@
 DEPS_LIBS = @DEPS_LIBS@
+DRIVER_MAN_DIR = @DRIVER_MAN_DIR@
+DRIVER_MAN_SUFFIX = @DRIVER_MAN_SUFFIX@
 ECHO_C = @ECHO_C@
 ECHO_N = @ECHO_N@
 ECHO_T = @ECHO_T@
 EGREP = @EGREP@
 EXEEXT = @EXEEXT@
+FILE_MAN_DIR = @FILE_MAN_DIR@
+FILE_MAN_SUFFIX = @FILE_MAN_SUFFIX@
+GETTEXT_MACRO_VERSION = @GETTEXT_MACRO_VERSION@
 GETTEXT_PACKAGE = @GETTEXT_PACKAGE@
-GMOFILES = @GMOFILES@
 GMSGFMT = @GMSGFMT@
+GMSGFMT_015 = @GMSGFMT_015@
 GREP = @GREP@
 INSTALL = @INSTALL@
 INSTALL_DATA = @INSTALL_DATA@
 INSTALL_PROGRAM = @INSTALL_PROGRAM@
 INSTALL_SCRIPT = @INSTALL_SCRIPT@
 INSTALL_STRIP_PROGRAM = @INSTALL_STRIP_PROGRAM@
-INSTOBJEXT = @INSTOBJEXT@
 INTLLIBS = @INTLLIBS@
 INTLTOOL_EXTRACT = @INTLTOOL_EXTRACT@
 INTLTOOL_MERGE = @INTLTOOL_MERGE@
 INTLTOOL_PERL = @INTLTOOL_PERL@
 INTLTOOL_UPDATE = @INTLTOOL_UPDATE@
+INTL_MACOSX_LIBS = @INTL_MACOSX_LIBS@
 LDFLAGS = @LDFLAGS@
+LIBICONV = @LIBICONV@
+LIBINTL = @LIBINTL@
 LIBOBJS = @LIBOBJS@
 LIBS = @LIBS@
+LIB_MAN_DIR = @LIB_MAN_DIR@
+LIB_MAN_SUFFIX = @LIB_MAN_SUFFIX@
+LTLIBICONV = @LTLIBICONV@
+LTLIBINTL = @LTLIBINTL@
 LTLIBOBJS = @LTLIBOBJS@
 MAINT = @MAINT@
 MAKEINFO = @MAKEINFO@
+MAN_SUBSTS = @MAN_SUBSTS@ $(am__append_1)
+MISC_MAN_DIR = @MISC_MAN_DIR@
+MISC_MAN_SUFFIX = @MISC_MAN_SUFFIX@
 MKDIR_P = @MKDIR_P@
-MKINSTALLDIRS = @MKINSTALLDIRS@
 MSGFMT = @MSGFMT@
-MSGFMT_OPTS = @MSGFMT_OPTS@
+MSGFMT_015 = @MSGFMT_015@
 MSGMERGE = @MSGMERGE@
 OBJEXT = @OBJEXT@
 PACKAGE = @PACKAGE@
@@ -131,17 +148,19 @@ PATH_SEPARATOR = @PATH_SEPARATOR@
 PKG_CONFIG = @PKG_CONFIG@
 PKG_CONFIG_LIBDIR = @PKG_CONFIG_LIBDIR@
 PKG_CONFIG_PATH = @PKG_CONFIG_PATH@
-POFILES = @POFILES@
 POSUB = @POSUB@
-PO_IN_DATADIR_FALSE = @PO_IN_DATADIR_FALSE@
-PO_IN_DATADIR_TRUE = @PO_IN_DATADIR_TRUE@
+SED = @SED@
 SET_MAKE = @SET_MAKE@
 SHELL = @SHELL@
 STRIP = @STRIP@
 USE_NLS = @USE_NLS@
 VERSION = @VERSION@
 XGETTEXT = @XGETTEXT@
+XGETTEXT_015 = @XGETTEXT_015@
+XGETTEXT_EXTRA_OPTIONS = @XGETTEXT_EXTRA_OPTIONS@
 XKBCOMP = @XKBCOMP@
+XORG_MAN_PAGE = @XORG_MAN_PAGE@
+XSLTPROC = @XSLTPROC@
 abs_builddir = @abs_builddir@
 abs_srcdir = @abs_srcdir@
 abs_top_builddir = @abs_top_builddir@
@@ -153,14 +172,22 @@ am__quote = @am__quote@
 am__tar = @am__tar@
 am__untar = @am__untar@
 bindir = @bindir@
+build = @build@
 build_alias = @build_alias@
+build_cpu = @build_cpu@
+build_os = @build_os@
+build_vendor = @build_vendor@
 builddir = @builddir@
 datadir = @datadir@
 datarootdir = @datarootdir@
 docdir = @docdir@
 dvidir = @dvidir@
 exec_prefix = @exec_prefix@
+host = @host@
 host_alias = @host_alias@
+host_cpu = @host_cpu@
+host_os = @host_os@
+host_vendor = @host_vendor@
 htmldir = @htmldir@
 includedir = @includedir@
 infodir = @infodir@
@@ -186,21 +213,16 @@ top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 xkb_base = @xkb_base@
 xkb_rules_symlink = @xkb_rules_symlink@
-keymapdir = $(xkb_base)/keymap/sgi_vndr
-dist_keymap_DATA = \
-be bg ca \
-ch cz de \
-dk dvorak \
-es fi \
-fr gb \
-hu it jp \
-no pl pt \
-ru se sk \
-th us
-
+EXTRA_DIST = man.xsl
+@HAVE_XSLTPROC_TRUE@miscmandir = $(MISC_MAN_DIR)
+@HAVE_XSLTPROC_TRUE@miscman_PRE = xkeyboard-config.man
+@HAVE_XSLTPROC_TRUE@miscman_DATA = $(miscman_PRE:man=@MISC_MAN_SUFFIX@)
+@HAVE_XSLTPROC_TRUE@CLEANFILES = $(miscman_DATA) $(miscman_PRE)
+@HAVE_XSLTPROC_TRUE@SUFFIXES = .$(MISC_MAN_SUFFIX) .man
 all: all-am
 
 .SUFFIXES:
+.SUFFIXES: .$(MISC_MAN_SUFFIX) .man
 $(srcdir)/Makefile.in: @MAINTAINER_MODE_TRUE@ $(srcdir)/Makefile.am  $(am__configure_deps)
 	@for dep in $?; do \
 	  case '$(am__configure_deps)' in \
@@ -210,9 +232,9 @@ $(srcdir)/Makefile.in: @MAINTAINER_MODE_TRUE@ $(srcdir)/Makefile.am  $(am__confi
 	      exit 1;; \
 	  esac; \
 	done; \
-	echo ' cd $(top_srcdir) && $(AUTOMAKE) --foreign keymap/sgi_vndr/Makefile'; \
+	echo ' cd $(top_srcdir) && $(AUTOMAKE) --foreign man/Makefile'; \
 	$(am__cd) $(top_srcdir) && \
-	  $(AUTOMAKE) --foreign keymap/sgi_vndr/Makefile
+	  $(AUTOMAKE) --foreign man/Makefile
 .PRECIOUS: Makefile
 Makefile: $(srcdir)/Makefile.in $(top_builddir)/config.status
 	@case '$?' in \
@@ -231,26 +253,26 @@ $(top_srcdir)/configure: @MAINTAINER_MODE_TRUE@ $(am__configure_deps)
 $(ACLOCAL_M4): @MAINTAINER_MODE_TRUE@ $(am__aclocal_m4_deps)
 	cd $(top_builddir) && $(MAKE) $(AM_MAKEFLAGS) am--refresh
 $(am__aclocal_m4_deps):
-install-dist_keymapDATA: $(dist_keymap_DATA)
+install-miscmanDATA: $(miscman_DATA)
 	@$(NORMAL_INSTALL)
-	test -z "$(keymapdir)" || $(MKDIR_P) "$(DESTDIR)$(keymapdir)"
-	@list='$(dist_keymap_DATA)'; test -n "$(keymapdir)" || list=; \
+	test -z "$(miscmandir)" || $(MKDIR_P) "$(DESTDIR)$(miscmandir)"
+	@list='$(miscman_DATA)'; test -n "$(miscmandir)" || list=; \
 	for p in $$list; do \
 	  if test -f "$$p"; then d=; else d="$(srcdir)/"; fi; \
 	  echo "$$d$$p"; \
 	done | $(am__base_list) | \
 	while read files; do \
-	  echo " $(INSTALL_DATA) $$files '$(DESTDIR)$(keymapdir)'"; \
-	  $(INSTALL_DATA) $$files "$(DESTDIR)$(keymapdir)" || exit $$?; \
+	  echo " $(INSTALL_DATA) $$files '$(DESTDIR)$(miscmandir)'"; \
+	  $(INSTALL_DATA) $$files "$(DESTDIR)$(miscmandir)" || exit $$?; \
 	done
 
-uninstall-dist_keymapDATA:
+uninstall-miscmanDATA:
 	@$(NORMAL_UNINSTALL)
-	@list='$(dist_keymap_DATA)'; test -n "$(keymapdir)" || list=; \
+	@list='$(miscman_DATA)'; test -n "$(miscmandir)" || list=; \
 	files=`for p in $$list; do echo $$p; done | sed -e 's|^.*/||'`; \
 	test -n "$$files" || exit 0; \
-	echo " ( cd '$(DESTDIR)$(keymapdir)' && rm -f" $$files ")"; \
-	cd "$(DESTDIR)$(keymapdir)" && rm -f $$files
+	echo " ( cd '$(DESTDIR)$(miscmandir)' && rm -f" $$files ")"; \
+	cd "$(DESTDIR)$(miscmandir)" && rm -f $$files
 tags: TAGS
 TAGS:
 
@@ -292,7 +314,7 @@ check-am: all-am
 check: check-am
 all-am: Makefile $(DATA)
 installdirs:
-	for dir in "$(DESTDIR)$(keymapdir)"; do \
+	for dir in "$(DESTDIR)$(miscmandir)"; do \
 	  test -z "$$dir" || $(MKDIR_P) "$$dir"; \
 	done
 install: install-am
@@ -312,6 +334,7 @@ install-strip:
 mostlyclean-generic:
 
 clean-generic:
+	-test -z "$(CLEANFILES)" || rm -f $(CLEANFILES)
 
 distclean-generic:
 	-test -z "$(CONFIG_CLEAN_FILES)" || rm -f $(CONFIG_CLEAN_FILES)
@@ -340,7 +363,7 @@ info: info-am
 
 info-am:
 
-install-data-am: install-dist_keymapDATA
+install-data-am: install-miscmanDATA
 
 install-dvi: install-dvi-am
 
@@ -384,22 +407,27 @@ ps: ps-am
 
 ps-am:
 
-uninstall-am: uninstall-dist_keymapDATA
+uninstall-am: uninstall-miscmanDATA
 
 .MAKE: install-am install-strip
 
 .PHONY: all all-am check check-am clean clean-generic distclean \
 	distclean-generic distdir dvi dvi-am html html-am info info-am \
-	install install-am install-data install-data-am \
-	install-dist_keymapDATA install-dvi install-dvi-am \
-	install-exec install-exec-am install-html install-html-am \
-	install-info install-info-am install-man install-pdf \
-	install-pdf-am install-ps install-ps-am install-strip \
-	installcheck installcheck-am installdirs maintainer-clean \
-	maintainer-clean-generic mostlyclean mostlyclean-generic pdf \
-	pdf-am ps ps-am uninstall uninstall-am \
-	uninstall-dist_keymapDATA
+	install install-am install-data install-data-am install-dvi \
+	install-dvi-am install-exec install-exec-am install-html \
+	install-html-am install-info install-info-am install-man \
+	install-miscmanDATA install-pdf install-pdf-am install-ps \
+	install-ps-am install-strip installcheck installcheck-am \
+	installdirs maintainer-clean maintainer-clean-generic \
+	mostlyclean mostlyclean-generic pdf pdf-am ps ps-am uninstall \
+	uninstall-am uninstall-miscmanDATA
 
+
+@HAVE_XSLTPROC_TRUE@xkeyboard-config.man: $(top_builddir)/rules/evdev.xml $(srcdir)/man.xsl
+@HAVE_XSLTPROC_TRUE@	$(XSLTPROC) -nonet $(srcdir)/man.xsl $(top_builddir)/rules/evdev.xml > $@
+
+@HAVE_XSLTPROC_TRUE@.man.$(MISC_MAN_SUFFIX):
+@HAVE_XSLTPROC_TRUE@	$(SED) $(MAN_SUBSTS) < $< > $@
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.
