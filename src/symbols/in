@@ -4,6 +4,7 @@
 //     - Gujarati
 //     - Kannada
 //     - Malayalam
+//     - Ol Chiki
 //     - Oriya
 //     - Tamil
 //     - Telugu
@@ -21,6 +22,8 @@
 //     http://ekushey.org/projects/shadhinota/index.html
 // - Microsoft Windows XP SP2: Indic Language Standards - an Introduction:
 //     http://www.bhashaindia.com/MSProducts/XpSp2/Articles/IndicLanguageStandards.aspx
+// - Ol Chiki:
+//    http://www.unicode.org/L2/L2005/05243r-n2984-ol-chiki.pdf (fig. 9)
 
 // based on a keyboard map from an 'xkb/symbols/dev' file
 
@@ -107,7 +110,7 @@ partial alphanumeric_keys
 xkb_symbols "bolnagri" {
      name[Group1] = "Hindi (Bolnagri)";
      key.type="FOUR_LEVEL";
-    //Top Alphanumeric row
+
     // Roman digits
     key <TLDE>  { [   U0902,	U0901,		apostrophe, 	asciitilde ] }; // apostrophe: anusvara, candrabindu
     key <AE01>  { [   1,	exclam,		U0967,		exclam	   ] };
@@ -393,8 +396,6 @@ xkb_symbols "ben_baishakhi" {
 //   modifier_map Shift  { Shift_L };
 //   modifier_map Lock   { Caps_Lock };
 //   modifier_map Control{ Control_L };
-
-
 };
 
 xkb_symbols "ben_inscript" {
@@ -536,8 +537,6 @@ xkb_symbols "ben_gitanjali" {
 //   modifier_map Shift  { Shift_L };
 //   modifier_map Lock   { Caps_Lock };
 //   modifier_map Control{ Control_L };
-
-
 };
 
 
@@ -613,7 +612,6 @@ xkb_symbols "ben_bornona" {
 //   modifier_map Control{ Control_L };
 // third level with right-alt
     include "level3(ralt_switch)"
-
 };
 
 partial alphanumeric_keys
@@ -842,7 +840,6 @@ xkb_symbols "mal" {
 
     include "rupeesign(4)"
     include "level3(ralt_switch)"
-
 };
 
 //Name		:	Lalitha
@@ -854,7 +851,7 @@ partial alphanumeric_keys
 xkb_symbols "mal_lalitha" {
      name[Group1] = "Malayalam (Lalitha)";
      key.type="FOUR_LEVEL";
-    //Top Alphanumeric row
+
     // Roman digits
     key <TLDE>  { [   U0D4D,	U0D02,		apostrophe, 	asciitilde ] }; // apostrophe: virama(chandrakala),anusvara
     key <AE01>  { [   1,	exclam,	U0D67,		exclam	   ] };
@@ -916,6 +913,75 @@ xkb_symbols "mal_lalitha" {
 //    modifier_map Mod3   { Mode_switch };
     include "level3(ralt_switch)"
     include "rupeesign(4)"
+};
+
+
+partial alphanumeric_keys
+xkb_symbols "olck" {
+
+    // Layout for the Ol Chiki script.
+    // http://www.unicode.org/L2/L2005/05243r-n2984-ol-chiki.pdf (figure 9)
+
+    name[Group1]= "Ol Chiki";
+
+    key <TLDE> { [  grave, U1C7B		] };
+
+    key <AE01> { [  U1C51, exclam		] };
+    key <AE02> { [  U1C52, at			] };
+    key <AE03> { [  U1C53, numbersign		] };
+    key <AE04> { [  U1C54, dollar, U20B9	] };
+    key <AE05> { [  U1C55, percent		] };
+    key <AE06> { [  U1C56, asciicircum		] };
+    key <AE07> { [  U1C57, ampersand		] };
+    key <AE08> { [  U1C58, asterisk		] };
+    key <AE09> { [  U1C59, parenleft		] };
+    key <AE10> { [  U1C50, parenright		] };
+    key <AE11> { [  minus, U1C7C		] };
+    key <AE12> { [  equal, plus			] };
+
+    key <AD01> { [  U1C67			] };
+    key <AD02> { [  U1C63			] };
+    key <AD03> { [  U1C6E			] };
+    key <AD04> { [  U1C68			] };
+    key <AD05> { [  U1C74, U1C5B		] };
+    key <AD06> { [  U1C6D  			] };
+    key <AD07> { [  U1C69			] };
+    key <AD08> { [  U1C64			] };
+    key <AD09> { [  U1C5A, U1C73		] };
+    key <AD10> { [  U1C6F  			] };
+    key <AD11> { [  bracketleft, braceleft	] };
+    key <AD12> { [  bracketright, braceright 	] };
+    key <BKSL> { [  U1C7F, U1C7E		] };
+
+    key <AC01> { [  U1C5F  			] };
+    key <AC02> { [  U1C65			] };
+    key <AC03> { [  U1C70, U1C6B		] };
+    key <AC04> { [  U1C5D  			] };
+    key <AC05> { [  U1C5C			] };
+    key <AC06> { [  U1C66, U1C77		] };
+    key <AC07> { [  U1C61  			] };
+    key <AC08> { [  U1C60			] };
+    key <AC09> { [  U1C5E			] };
+    key <AC10> { [  semicolon, U1C7A		] };
+    key <AC11> { [  apostrophe, quotedbl	] };
+
+    key <AB01> { [  U1C72			] };
+    key <AB02> { [  U1C7D			] };
+    key <AB03> { [  U1C6A			] };
+    key <AB04> { [  U1C76			] };
+    key <AB05> { [  U1C75			] };
+    key <AB06> { [  U1C71, U1C78		] };
+    key <AB07> { [  U1C62, U1C6C		] };
+    key <AB08> { [  comma, less			] };
+    key <AB09> { [  U1C79, greater		] };
+    key <AB10> { [  slash, question		] };
+
+    key <RALT> {
+	symbols[Group1] = [ Mode_switch, Multi_key ],
+	virtualMods = AltGr
+    };
+
+    include "level3(ralt_switch)"
 };
 
 
@@ -1236,7 +1302,6 @@ xkb_symbols "tam_TSCII" {
     key <AB06> { [ 0x10000b6, 0x10000aa ] }; // au
     key <AB07> { [ 0x10000ab, 0x10000ac ] }; // a, A
     key <AB08> { [ 0x10000fe, 0x10000ae ] }; // i, I
-
 };
 
 partial alphanumeric_keys
@@ -1399,7 +1464,7 @@ xkb_symbols "guru" {
       key <AE08> { [      U0A6e  	 	]	};
       key <AE09> { [      U0A6F, parenleft 	]	};
       key <AE10> { [      U0A66, parenright ]	};
-      key <AE11> { [      gur_visarga 	 	]	};
+      key <AE11> { [      U0A03 	 	]	};
       key <AE12> { [      equal,	plus 	]	};
 
 // Mainly long vowels
@@ -1462,7 +1527,7 @@ partial alphanumeric_keys
 xkb_symbols "jhelum" {
       name[Group1] = "Punjabi (Gurmukhi Jhelum)";
           key.type="FOUR_LEVEL";
-     //Top Alphanumeric row
+
      // Roman digits
      key <TLDE>  { [  apostrophe, asciitilde, U0A02,U0A01 ] }; // apostrophe: anusvara, candrabindu
      key <AE01>  { [   1,exclam,	U0A67,	exclam	   ] };
@@ -1645,7 +1710,7 @@ xkb_symbols "hin-wx" {
       key <AB01> {	 [      0x1000901,   0x100093C, 0x100093D, 0x1000950]   };
       key <AB02> {       [      0x1000926,   0x1000927      ]       };
       key <AB03> {       [      0x100091A,   0x100091B         ]       };
-      key <AB04> {       [      0x1000935,   dead_V        ]       };
+      key <AB04> {       [      0x1000935                      ]       };
       key <AB05> {       [      0x100092C,   0x100092D        ]       };
       key <AB06> {       [      0x1000928,   0x1000923         ]       };
       key <AB07> {       [      0x100092E,   0x1000902         ]       };
@@ -1660,12 +1725,10 @@ xkb_symbols "hin-wx" {
 partial alphanumeric_keys
 xkb_symbols "eng" {
 
-    name[Group1]= "English (India, with RupeeSign)";
-
     include "us(basic)"
+    name[Group1]= "English (India, with rupee sign)";
 
     include "rupeesign(4)"
-
     include "level3(ralt_switch)"
 };
 
@@ -1681,7 +1744,7 @@ xkb_symbols "eng" {
 partial alphanumeric_keys
 xkb_symbols "mal_enhanced" {
 
-    name[Group1] = "Malayalam (enhanced Inscript with Rupee Sign)";
+    name[Group1] = "Malayalam (enhanced Inscript, with rupee sign)";
 
    //From grave to backslash (\)
 
@@ -1744,11 +1807,8 @@ xkb_symbols "mal_enhanced" {
     key <AB09> { [ period , U0d7d ] }; //chillu l
     key <AB10> { [ U0d2f , question ] };
 
-    // hope this includes the rupee sign at alt + 4
-
     include "rupeesign(4)"
     include "level3(ralt_switch)"
-
 };
 
 
@@ -1780,13 +1840,12 @@ xkb_symbols "hin-kagapa" {
      name[Group1] = "Hindi (KaGaPa phonetic)";
      key.type="FOUR_LEVEL";
 
-    //Top Alphanumeric row
     // Roman digits
     key <TLDE>  { [   apostrophe,   asciitilde,   U201C          ] };  // U201C: left double quotation mark
     key <AE01>  { [   1,            exclam,       U0967          ] };
     key <AE02>  { [   2,            at,           U0968,  U20A8  ] };  // U20A8: generic rupee sign (Rs)
     key <AE03>  { [   3,            numbersign,   U0969          ] };
-    key <AE04>  { [   4,            dollar,       U096A,  U20B9  ] };  // U20B9: new Indian Rupee sign
+    key <AE04>  { [   4,            dollar,       U096A,  U20B9  ] };  // U20B9: new Indian rupee sign
     key <AE05>  { [   5,            percent,      U096B          ] };
     key <AE06>  { [   6,            asciicircum,  U096C,  U200C  ] };  // ZWNJ
     key <AE07>  { [   7,            ampersand,    U096D,  U200D  ] };  // ZWJ
@@ -1824,7 +1883,6 @@ xkb_symbols "hin-kagapa" {
     key <AC10>  { [   semicolon,    colon,     U1CF2,    U1CF3   ] };  // U1CF2/3: ardhavisarga/rotated ardhavisarga
     key <AC11>  { [   apostrophe,   quotedbl,  U0951,    U201D   ] };  // U0951: Devanagari stress sign udatta
                                                                        // U201D: Right double quotation mark
-
     //Z Row
     key <AB01>  { [   U091E,   U0919                   ] };  // Z: nya, nga
     key <AB02>  { [   U0937,   U093C,  U0934           ] };  // X: ssa, nukta below, lla-nukta
@@ -1844,17 +1902,15 @@ xkb_symbols "hin-kagapa" {
 // Sanskrit uses Devanagari layout of Hindi
 partial alphanumeric_keys
 xkb_symbols "san-kagapa" {
-  name[Group1] = "Sanskrit (KaGaPa phonetic)";
   include "in(hin-kagapa)"
-
+  name[Group1] = "Sanskrit (KaGaPa phonetic)";
 };
 
 // Marathi uses Devanagari layout of Hindi
 partial alphanumeric_keys
 xkb_symbols "mar-kagapa" {
-  name[Group1] = "Marathi (KaGaPa phonetic)";
   include "in(hin-kagapa)"
-
+  name[Group1] = "Marathi (KaGaPa phonetic)";
 };
 
 
@@ -1875,13 +1931,12 @@ xkb_symbols "kan-kagapa" {
     name[Group1] = "Kannada (KaGaPa phonetic)";
     key.type="FOUR_LEVEL";
 
-    //Top Alphanumeric row
     // Roman digits
     key <TLDE>  { [   apostrophe,   asciitilde,   U201C          ] };  // U201C: left double quotation mark
     key <AE01>  { [   1,            exclam,       U0CE7          ] };
     key <AE02>  { [   2,            at,           U0CE8,  U20A8  ] };  // U20A8: generic rupee sign (Rs)
     key <AE03>  { [   3,            numbersign,   U0CE9          ] };
-    key <AE04>  { [   4,            dollar,       U0CEA,  U20B9  ] };  // U20B9: new Indian Rupee sign
+    key <AE04>  { [   4,            dollar,       U0CEA,  U20B9  ] };  // U20B9: new Indian rupee sign
     key <AE05>  { [   5,            percent,      U0CEB          ] };
     key <AE06>  { [   6,            asciicircum,  U0CEC,  U200C  ] };  // ZWNJ
     key <AE07>  { [   7,            ampersand,    U0CED,  U200D  ] };  // ZWJ
@@ -1919,7 +1974,6 @@ xkb_symbols "kan-kagapa" {
     key <AC10>  { [   semicolon,    colon                        ] };
     key <AC11>  { [   apostrophe,   quotedbl,  U0951,    U201D   ] };  // U0951: Devanagari stress sign udatta
                                                                        // U201D: Right double quotation mark
-
     //Z Row
     key <AB01>  { [   U0C9E,   U0C99                   ] };  // Z: nya, nga
     key <AB02>  { [   U0CB7,   U0CBC,  U0CDE           ] };  // X: ssa, nukta below, LLLA
@@ -1954,13 +2008,12 @@ xkb_symbols "tel-kagapa" {
     name[Group1] = "Telugu (KaGaPa phonetic)";
     key.type="FOUR_LEVEL";
 
-    //Top Alphanumeric row
     // Roman digits
     key <TLDE>  { [   apostrophe,   asciitilde,   U201C          ] };  // U201C: left double quotation mark
     key <AE01>  { [   1,            exclam,       U0C67          ] };
     key <AE02>  { [   2,            at,           U0C68,  U20A8  ] };  // U20A8: generic rupee sign (Rs)
     key <AE03>  { [   3,            numbersign,   U0C69          ] };
-    key <AE04>  { [   4,            dollar,       U0C6A,  U20B9  ] };  // U20B9: new Indian Rupee sign
+    key <AE04>  { [   4,            dollar,       U0C6A,  U20B9  ] };  // U20B9: new Indian rupee sign
     key <AE05>  { [   5,            percent,      U0C6B          ] };
     key <AE06>  { [   6,            asciicircum,  U0C6C,  U200C  ] };  // ZWNJ
     key <AE07>  { [   7,            ampersand,    U0C6D,  U200D  ] };  // ZWJ
@@ -1998,7 +2051,6 @@ xkb_symbols "tel-kagapa" {
     key <AC10>  { [   semicolon,    colon                        ] };
     key <AC11>  { [   apostrophe,   quotedbl,  U0951,    U201D   ] };  // U0951: Devanagari stress sign udatta
                                                                        // U201D: Right double quotation mark
-
     //Z Row
     key <AB01>  { [   U0C1E,   U0C19                   ] };  // Z: nya, nga
     key <AB02>  { [   U0C37                            ] };  // X: ssa
@@ -2026,7 +2078,6 @@ xkb_symbols "eeyek" {
 
     name[Group1]= "Manipuri (Eeyek)";
 
-    // Alphanumeric section
     key <TLDE> {	[     grave,	asciitilde	]	};
     key <AE01> {	[	  Uabf1,	exclam 		]	};
     key <AE02> {	[	  Uabf2,	at		]	};
@@ -2078,7 +2129,6 @@ xkb_symbols "eeyek" {
     key <AB10> {	[     slash,	question	]	};
 
     key <BKSL> {	[ backslash,         bar	]	};
-    // End alphanumeric section
     
     include "level3(ralt_switch)"
 };

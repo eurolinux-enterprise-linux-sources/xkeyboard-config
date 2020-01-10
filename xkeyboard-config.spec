@@ -6,8 +6,8 @@
 
 Summary: X Keyboard Extension configuration data
 Name: xkeyboard-config
-Version: 2.11
-Release: 3%{?gitdate:.%{gitdate}git%{gitversion}}%{?dist}
+Version: 2.16
+Release: 1%{?gitdate:.%{gitdate}git%{gitversion}}%{?dist}
 License: MIT
 Group: User Interface/X
 URL: http://www.freedesktop.org/wiki/Software/XKeyboardConfig
@@ -22,8 +22,6 @@ Source0: http://xorg.freedesktop.org/archive/individual/data/xkeyboard-config/%{
 
 # Bug 923160 - Removal of /usr/share/X11/xkb/keymap.dir breaks NX
 Patch01: 0001-Revert-Remove-.dir-generation.patch
-# Bug 1164507 - Broken ru-phonetic layout since 2.11 -- update to 2.12
-Patch02: 0001-Back-to-previous-ru-phonetic-keyboard-layout.patch
 
 BuildArch: noarch
 
@@ -140,6 +138,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/pkgconfig/xkeyboard-config.pc
 
 %changelog
+* Wed Nov 25 2015 Peter Hutterer <peter.hutterer@redhat.com> 2.16-1
+- xkeyboard-config 2.16 (#1250804)
+
 * Fri Jan 16 2015 Peter Hutterer <peter.hutterer@redhat.com> 2.11-3
 - Install the keymap.dir file as well (#923160)
 

@@ -1,4 +1,4 @@
-From 8350f6c5294844d6accd22f932a1f25169975b24 Mon Sep 17 00:00:00 2001
+From fbf9c53036e18ef16e65eabed251997d72fc4bba Mon Sep 17 00:00:00 2001
 From: Peter Hutterer <peter.hutterer@who-t.net>
 Date: Tue, 25 Nov 2014 10:01:34 +1000
 Subject: [PATCH] Revert "Remove *.dir generation"
@@ -8,18 +8,18 @@ This reverts commit 67804fe9398ac1bda8bbed40dcf65dd7ce734364.
 Conflicts:
 	symbols/Makefile.am
 ---
- compat/Makefile.am   |  7 +++++--
+ compat/Makefile.am   |  6 ++++--
  configure.ac         |  5 +++++
  geometry/Makefile.am |  6 ++++--
  keycodes/Makefile.am |  6 ++++--
  symbols/Makefile.am  |  6 ++++--
  types/Makefile.am    |  6 ++++--
- xkbrules.am          | 14 ++++++++++++++
- 7 files changed, 40 insertions(+), 10 deletions(-)
+ xkbrules.am          | 13 +++++++++++++
+ 7 files changed, 38 insertions(+), 10 deletions(-)
  create mode 100644 xkbrules.am
 
 diff --git a/compat/Makefile.am b/compat/Makefile.am
-index e2026af..aeed932 100644
+index e2026af..279ad60 100644
 --- a/compat/Makefile.am
 +++ b/compat/Makefile.am
 @@ -1,6 +1,6 @@
@@ -30,7 +30,7 @@ index e2026af..aeed932 100644
  accessx basic caps complete \
  iso9995 \
  japan ledcaps \
-@@ -9,4 +9,7 @@ misc mousekeys \
+@@ -9,4 +9,6 @@ misc mousekeys \
  olpc pc pc98 xfree86 \
  xtest README
  
@@ -38,9 +38,8 @@ index e2026af..aeed932 100644
 +dir_data = $(dist_compat_DATA)
 +
 +include $(top_srcdir)/xkbrules.am
-+
 diff --git a/configure.ac b/configure.ac
-index a0886a6..044f966 100644
+index 2e72577..1e52b0b 100644
 --- a/configure.ac
 +++ b/configure.ac
 @@ -14,6 +14,11 @@ AC_PROG_SED
@@ -56,7 +55,7 @@ index a0886a6..044f966 100644
               [AS_HELP_STRING([--with-xkb-base=DIR],[XKB base path @<:@DATADIR/X11/xkb@:>@])],
               xkb_base="$withval", 
 diff --git a/geometry/Makefile.am b/geometry/Makefile.am
-index 069a953..2a83d16 100644
+index 4c5348b..5dbd152 100644
 --- a/geometry/Makefile.am
 +++ b/geometry/Makefile.am
 @@ -2,7 +2,7 @@ SUBDIRS = digital_vndr  sgi_vndr
@@ -70,7 +69,7 @@ index 069a953..2a83d16 100644
  hhk hp keytronic kinesis \
 @@ -10,4 +10,6 @@ macintosh microsoft nec nokia \
  northgate pc sanwa sony thinkpad \
- sun typematrix winbook README
+ sun teck typematrix winbook README
  
 -EXTRA_DIST = $(geom_DATA)
 +dir_data = $(dist_geom_DATA)
@@ -98,7 +97,7 @@ index 78a0355..d0c42cf 100644
 +
 +include $(top_srcdir)/xkbrules.am
 diff --git a/symbols/Makefile.am b/symbols/Makefile.am
-index 509a549..d417835 100644
+index 77ec0ff..e3e06f5 100644
 --- a/symbols/Makefile.am
 +++ b/symbols/Makefile.am
 @@ -1,7 +1,7 @@
@@ -138,10 +137,10 @@ index 0084184..6da3ccb 100644
 +include $(top_srcdir)/xkbrules.am
 diff --git a/xkbrules.am b/xkbrules.am
 new file mode 100644
-index 0000000..d8ee781
+index 0000000..58f7800
 --- /dev/null
 +++ b/xkbrules.am
-@@ -0,0 +1,14 @@
+@@ -0,0 +1,13 @@
 +# Common rules for building *.dir files in all xkb subdirectories
 +# Replaces Imake's MakeXkbDir() rule
 +# svu: taken from xkbdata
@@ -155,7 +154,6 @@ index 0000000..d8ee781
 +	$(XKBCOMP) -lfhlpR -o $@ '*'
 +
 +CLEANFILES = $(subdir).dir
-+
 -- 
-2.1.0
+2.5.0
 
