@@ -1,3 +1,4 @@
+// $XKeyboardConfig$
 // Latvian keymap version 1.1
 // Copyright (C) Dmitry Golubev <lastguru@mail.ru>, 2003-2004
 //
@@ -28,7 +29,7 @@
 
 // Modified by Aldis Berjoza <aldis@bsdroot.lv>, 12 april 2011
 // Changes:
-//   * Added Latvian Ergonomic, Latvian Adapted and Latvian Modern variants
+//   * Added Latvian Ergonomic, Latvian Adapted and Latvian Modernd variants
 //      Author of this work is Valdis Vītoliņš
 //      http://odo.lv/LatvianKeyboard
 //      http://odo.lv/Recipes/LatvianKeyboard#HErgonomiskC481stastatC5ABrasuzlikC5A1anauzLinuxdatora%22
@@ -44,7 +45,7 @@
 // Latvian QWERTY layout
 // http://en.wikipedia.org/wiki/QWERTY
 //
-default  partial alphanumeric_keys modifier_keys
+partial default alphanumeric_keys modifier_keys
 xkb_symbols "basic" {
 
 	name[Group1]= "Latvian";
@@ -408,7 +409,7 @@ xkb_symbols "minuskeydvorak" {
 
 	name[Group1]= "Latvian (US Dvorak, minus variant)";
 
-	key <AC11> {[ISO_Level3_Latch, ISO_Level3_Latch, minus, underscore]};
+	key <AC11> {[ISO_Level3_Latch, ISO_Level3_Latch, mimus, underscore]};
 	key <SPCE> {[space, space, minus, underscore]};
 	modifier_map Mod5 { <AR11> };
 
@@ -467,7 +468,7 @@ xkb_symbols "minuskeydvorakprogr" {
 
 	name[Group1]= "Latvian (programmer US Dvorak, minus variant)";
 
-	key <AC11> {[ISO_Level3_Latch, ISO_Level3_Latch, minus, underscore]};
+	key <AC11> {[ISO_Level3_Latch, ISO_Level3_Latch, mimus, underscore]};
 	key <SPCE> {[space, space, minus, underscore]};
 	modifier_map Mod5 { <AC11> };
 

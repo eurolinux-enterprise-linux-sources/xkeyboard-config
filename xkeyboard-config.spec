@@ -6,8 +6,8 @@
 
 Summary: X Keyboard Extension configuration data
 Name: xkeyboard-config
-Version: 2.20
-Release: 1%{?gitdate:.%{gitdate}git%{gitversion}}%{?dist}
+Version: 2.9
+Release: 3%{?gitdate:.%{gitdate}git%{gitversion}}%{?dist}
 License: MIT
 Group: User Interface/X
 URL: http://www.freedesktop.org/wiki/Software/XKeyboardConfig
@@ -18,8 +18,6 @@ Source2:    commitid
 %else
 Source0: http://xorg.freedesktop.org/archive/individual/data/xkeyboard-config/%{name}-%{version}.tar.bz2
 %endif
-
-Patch01: 0001-Revert-rules-Move-Finnish-DAS-layout-to-extras.patch
 
 BuildArch: noarch
 
@@ -100,7 +98,7 @@ rm -f $RPM_BUILD_ROOT%{_datadir}/X11/xkb/compiled
 
 %files -f files.list -f %{name}.lang
 %defattr(-,root,root,-)
-%doc AUTHORS README NEWS TODO COPYING docs/README.* docs/HOWTO.*
+%doc AUTHORS README NEWS TODO COPYING CREDITS docs/README.* docs/HOWTO.*
 %{_datadir}/X11/xkb/rules/xorg
 %{_datadir}/X11/xkb/rules/xorg.lst
 %{_datadir}/X11/xkb/rules/xorg.xml
@@ -111,15 +109,6 @@ rm -f $RPM_BUILD_ROOT%{_datadir}/X11/xkb/compiled
 %{_datadir}/pkgconfig/xkeyboard-config.pc
 
 %changelog
-* Wed Feb 08 2017 Peter Hutterer <peter.hutterer@redhat.com> 2.20-1
-- xkeyboard-config 2.20 (#1401753)
-
-* Tue Jun 16 2015 Peter Hutterer <peter.hutterer@redhat.com> 2.14-1
-- xkeyboard-config 2.14 (#1194871)
-
-* Fri Dec 27 2013 Daniel Mach <dmach@redhat.com> - 2.9-4
-- Mass rebuild 2013-12-27
-
 * Wed Jul 17 2013 Peter Hutterer <peter.hutterer@redhat.com> 2.9-3
 - Fix changelog - percent sign needs to be escaped
 

@@ -149,6 +149,7 @@ default xkb_geometry "macintosh" {
 	};
     }; // End of "Editing" section
 
+    // Begin of "Keypad" section
     section "Keypad" {
         top = 87;
         left = 380;
@@ -300,6 +301,7 @@ xkb_geometry "applepro" {
        };
     }; // End of "Editing" section
 
+    // Begin of "Keypad" section
     section "Keypad" {
         top = 48;
         left = 370;
@@ -542,6 +544,7 @@ xkb_geometry "macbook79" {
                    <KPEN>
 	    };
 	};
+
     }; // End of "Alpha" section
 
     key.shape= "ARRO";
@@ -562,7 +565,7 @@ xkb_geometry "macbook79" {
     alias <AC00> = <CAPS>;
     alias <AA00> = <LCTL>;
 
-};
+}; // End of "default" geometry
 
 
 // Aluminium Keyboard, ANSI model (United States, 109 keys)

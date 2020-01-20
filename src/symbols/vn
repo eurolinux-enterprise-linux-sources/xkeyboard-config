@@ -8,14 +8,15 @@
 // July 2009
 
 
-default  partial alphanumeric_keys
+partial default alphanumeric_keys  
 xkb_symbols "basic" {
 
     include "us"
 
     name[Group1]= "Vietnamese";
 
-    key <TLDE> { [	   grave, 	asciitilde	] };
+    // Alphanumeric section
+    key <TLDE> { [ quoteleft, asciitilde  ]	};
     key <AE01> { [	   abreve,	Abreve		] };
     key <AE02> { [	   acircumflex,  Acircumflex	] };
     key <AE03> { [	   ecircumflex,	Ecircumflex	] };
@@ -31,6 +32,8 @@ xkb_symbols "basic" {
 
     key <AD11> { [ uhorn,	Uhorn	] };
     key <AD12> { [ ohorn,	Ohorn	] };
+
+    // End alphanumeric section
 
     include "level3(ralt_switch)"
 };

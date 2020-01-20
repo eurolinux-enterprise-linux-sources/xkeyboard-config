@@ -1,8 +1,10 @@
-default  partial alphanumeric_keys modifier_keys
+default
+partial alphanumeric_keys modifier_keys 
 xkb_symbols "basic" {
 
     name[Group1]= "English (US)";
 
+    // Alphanumeric section
     key <TLDE> {	[     grave,	asciitilde	]	};
     key <AE01> {	[	  1,	exclam 		]	};
     key <AE02> {	[	  2,	at		]	};
@@ -54,13 +56,15 @@ xkb_symbols "basic" {
     key <AB10> {	[     slash,	question	]	};
 
     key <BKSL> {	[ backslash,         bar	]	};
+    // End alphanumeric section
 };
 
 partial alphanumeric_keys
 xkb_symbols "euro" {
 
-    include "us(basic)"
     name[Group1]= "English (US, with euro on 5)";
+
+    include "us(basic)"
 
     include "eurosign(5)"
 
@@ -69,24 +73,13 @@ xkb_symbols "euro" {
 
 
 partial alphanumeric_keys
-xkb_symbols "ibm238l" {
-
-    include "us(basic)"
-    name[Group1]= "English (US, IBM Arabic 238_L)";
-
-    key <AB08> {        [     comma,    comma      ]       };
-    key <AB09> {        [    period,    period     ]       };
-    key <BKSL> {        [ quoteleft,    asciitilde ]       };
-    key <LSGT> {        [ backslash,    bar        ]       };
-    key <TLDE> {        [ leftcaret,    rightcaret ]       };
-};
-
-partial alphanumeric_keys
 xkb_symbols "intl" {
 
-    include "us(basic)"
     name[Group1]= "English (US, international with dead keys)";
 
+    include "us(basic)"
+
+    // Alphanumeric section
     key <TLDE> { [dead_grave, dead_tilde,         grave,       asciitilde ] };
     key <AE01> { [	   1,     exclam,    exclamdown,      onesuperior ] };
     key <AE02> { [	   2,         at,   twosuperior, dead_doubleacute ] };
@@ -139,8 +132,6 @@ xkb_symbols "intl" {
     key <AB10> { [     slash,   question,  questiondown,        dead_hook ] };
     key <BKSL> { [ backslash,        bar,       notsign,        brokenbar ] };
 
-    key <LSGT> { [ backslash,   bar,            backslash,      bar ] };
-
     include "level3(ralt_switch)"
 };
 
@@ -174,8 +165,9 @@ xkb_symbols "intl" {
 partial alphanumeric_keys
 xkb_symbols "alt-intl" {
 
-  include "us"
   name[Group1]= "English (US, alternative international)";
+
+  include "us"
 
   key <TLDE> { [ dead_grave, dead_tilde,    grave,	      asciitilde    ] };
   key <AE05> { [          5, percent,	    EuroSign			    ] };
@@ -194,8 +186,6 @@ xkb_symbols "alt-intl" {
   key <AB09> { [     period, greater,	     dead_abovedot, dead_circumflex ] };
   key <AB10> { [      slash, question,	     dead_hook,	    dead_hook	    ] };
 
-  key <LSGT> { [ backslash,   bar,            backslash,      bar ] };
-
   include "level3(ralt_switch)"
 };
 
@@ -205,6 +195,8 @@ partial alphanumeric_keys
 xkb_symbols "dvorak" {
 
     name[Group1]= "English (Dvorak)";
+
+    // Alphanumeric section
 
     key <TLDE> { [       grave,	asciitilde, dead_grave, dead_tilde	] };
 
@@ -267,8 +259,9 @@ xkb_symbols "dvorak" {
 partial alphanumeric_keys
 xkb_symbols "dvorak-intl" {
 
-    include "us(dvorak)"
     name[Group1]= "English (Dvorak, international with dead keys)";
+
+    include "us(dvorak)"
 
     key <TLDE> { [dead_grave, dead_tilde,         grave,       asciitilde ] };
 
@@ -345,8 +338,9 @@ xkb_symbols "dvorak-intl" {
 partial alphanumeric_keys
 xkb_symbols "dvorak-alt-intl" {
 
-    include "us(dvorak)"
     name[Group1]= "English (Dvorak alternative international no dead keys)";
+
+    include "us(dvorak)"
 
     key <AE04> { [         4,  dollar,    EuroSign ] };
 
@@ -433,7 +427,7 @@ xkb_symbols "dvorak-l" {
 
 partial alphanumeric_keys
 xkb_symbols "dvorak-r" {
-
+    
     include "us(dvorak)"
     name[Group1]= "English (right handed Dvorak)";
 
@@ -496,6 +490,8 @@ xkb_symbols "dvorak-classic" {
 
     name[Group1]= "English (classic Dvorak)";
 
+    // Alphanumeric section
+
     key <TLDE> { [       grave,	asciitilde, dead_grave, dead_tilde	] };
 
     key <AE01> { [ bracketleft,	braceleft	]	};
@@ -554,12 +550,11 @@ xkb_symbols "dvorak-classic" {
 // Main features: Numbers are in shift position (like French), symbols have been
 // placed in locations that give good hand-alternation and finger rolling with
 // symbols that usually follows, accented characters are possible for I18N.
-// Patch suggestions should be sent upstream.
 partial alphanumeric_keys
 xkb_symbols "dvp" {
-
     include "us(dvorak)"
-    name[Group1] = "English (Programmer Dvorak)";
+
+    name[Group1] = "English (programmer Dvorak)";
 
     //             Unmodified       Shift           AltGr            Shift+AltGr
     // symbols row, left side
@@ -576,21 +571,21 @@ xkb_symbols "dvp" {
     key <AE08> { [ parenright,      2,              onehalf                     ], type[Group1] = "FOUR_LEVEL_ALPHABETIC" };
     key <AE09> { [ plus,            4                                           ], type[Group1] = "FOUR_LEVEL_ALPHABETIC" };
     key <AE10> { [ bracketright,    6                                           ], type[Group1] = "FOUR_LEVEL_ALPHABETIC" };
-    key <AE11> { [ exclam,          8,              exclamdown,      U2E18      ], type[Group1] = "FOUR_LEVEL_ALPHABETIC" };  // reversed interrobang
+    key <AE11> { [ exclam,          8,              exclamdown                  ], type[Group1] = "FOUR_LEVEL_ALPHABETIC" };
     key <AE12> { [ numbersign,      grave,          dead_grave                  ] };
     key <BKSP> { [ BackSpace,       BackSpace                                   ] };
 
     // upper row, left side
     key <AD01> { [ semicolon,       colon,          dead_diaeresis              ] };
-    key <AD02> { [ comma,           less,           guillemotleft,   U201C      ] };
-    key <AD03> { [ period,          greater,        guillemotright,  U201D      ] };
+    key <AD02> { [ comma,           less,           guillemotleft               ] };
+    key <AD03> { [ period,          greater,        guillemotright              ] };
     key <AD04> { [ p,               P,              paragraph,       section    ] };
     key <AD05> { [ y,               Y,              udiaeresis,      Udiaeresis ] };
 
     // upper row, right side
     key <AD08> { [ c,               C,              ccedilla,        Ccedilla   ] };
     key <AD09> { [ r,               R,              registered,      trademark  ] };
-    key <AD11> { [ slash,           question,       questiondown,    U203D      ] };  // interrobang
+    key <AD11> { [ slash,           question,       questiondown                ] };
     key <AD12> { [ at,              asciicircum,    dead_circumflex, dead_caron ] };
 
     // home row, left side
@@ -605,14 +600,13 @@ xkb_symbols "dvp" {
     key <AC08> { [ t,               T,              thorn,           THORN      ] };
     key <AC09> { [ n,               N,              ntilde,          Ntilde     ] };
     key <AC10> { [ s,               S,              ssharp                      ] };
-    key <AC11> { [ minus,           underscore,     hyphen,          endash     ], type[Group1] = "FOUR_LEVEL_ALPHABETIC" };
+    key <AC11> { [ minus,           underscore,     hyphen                      ], type[Group1] = "FOUR_LEVEL_ALPHABETIC" };
     key <BKSL> { [ backslash,       bar                                         ] };
 
     // lower row, left side
     key <AB01> { [ apostrophe,      quotedbl,       dead_acute                  ] };
 
-    // do NOT hardcode this switch; use lv3:ralt_switch option instead!
-    //include "level3(ralt_switch)"
+    include "level3(ralt_switch)"
 };
 
 // phonetic layout for Russian letters on an US keyboard
@@ -628,8 +622,9 @@ xkb_symbols "dvp" {
 partial alphanumeric_keys
 xkb_symbols "rus" {
 
-    include "us(basic)"
     name[Group1]= "Russian (US, phonetic)";
+
+    include "us(basic)"
 
 key.type[group1]="FOUR_LEVEL_ALPHABETIC";
 
@@ -734,16 +729,16 @@ xkb_symbols "mac" {
 
     include "level3(ralt_switch)"
 };
-
+ 
 // Colemak symbols for xkb on X.Org Server 7.x
 // 2006-01-01 Shai Coleman, http://colemak.com/
 
 partial alphanumeric_keys
 xkb_symbols "colemak" {
-
     include "us"
     name[Group1]= "English (Colemak)";
 
+    // Alphanumeric section
     key <TLDE> { [        grave,   asciitilde,      dead_tilde,       asciitilde ] };
     key <AE01> { [            1,       exclam,      exclamdown,      onesuperior ] };
     key <AE02> { [            2,           at,       masculine,      twosuperior ] };
@@ -821,8 +816,9 @@ xkb_symbols "colemak" {
 partial alphanumeric_keys
 xkb_symbols "altgr-intl" {
 
-   include "us(intl)"
    name[Group1]= "English (international AltGr dead keys)";
+
+   include "us(intl)"
 
 // five dead keys moved into level3:
 
@@ -857,7 +853,7 @@ xkb_symbols "altgr-intl" {
 partial alphanumeric_keys
 xkb_symbols "classmate" {
     include "us(basic)"
-    name[Group1]= "English (US)";
+    name[Group1]= "USA - ClassmatePC";
 
     key <LSGT> { [ backslash,	bar,		backslash,	bar ] };
 
@@ -902,11 +898,11 @@ xkb_symbols "classmate-intl" {
 			oslash,			Ooblique	] };
     key <KPAD> { [ 	KP_Add,     		KP_Add,
 			paragraph,		degree          ] };
-
+   
     key <KP0>  { [	KP_Insert,		KP_0,
 			mu,			mu	] };
     key <KPDL> { [	KP_Delete,		KP_Decimal,
-			dead_abovedot,		dead_caron	] };
+			dead_abovedot,		dead_caron	] }; 
     key <KPDV> { [ 	KP_Divide,   		KP_Divide,
 			questiondown,		dead_hook       ] };
 
@@ -935,9 +931,9 @@ xkb_symbols "classmate-alt-intl" {
 
     key <KPAD> { [ 	KP_Add,     		KP_Add,
 			dead_ogonek,		dead_diaeresis   ] };
-
+    
     key <KPDL> { [	KP_Delete,		KP_Decimal,
-			dead_abovedot,		dead_circumflex	] };
+			dead_abovedot,		dead_circumflex	] }; 
     key <KPDV> { [ 	KP_Divide,   		KP_Divide,
 			dead_hook,		dead_hook       ] };
 
@@ -983,11 +979,11 @@ xkb_symbols "classmate-altgr-intl" {
 			oslash,			Ooblique	] };
     key <KPAD> { [ 	KP_Add,     		KP_Add,
 			paragraph,		degree          ] };
-
+   
     key <KP0>  { [	KP_Insert,		KP_0,
 			mu,			mu	] };
     key <KPDL> { [	KP_Delete,		KP_Decimal,
-			dead_abovedot,		dead_caron	] };
+			dead_abovedot,		dead_caron	] }; 
     key <KPDV> { [ 	KP_Divide,   		KP_Divide,
 			questiondown,		dead_hook       ] };
 
@@ -1056,14 +1052,14 @@ xkb_symbols "olpc" {
 partial alphanumeric_keys
 xkb_symbols "olpc2" {
    include "us(olpc)"
-   name[Group1]= "English (the divide/multiply keys toggle the layout)";
+   name[Group1]= "English (layout toggle on multiply/divide key)";
    include "group(olpc)"
 };
 
 xkb_symbols "olpcm" {
 
    include "us(basic)"
-   name[Group1]= "English (US)";
+   name[Group1]= "USA";
 
    // Mechanical (non-membrane) OLPC int'l US English keyboard layout.
    // See: http://wiki.laptop.org/go/OLPC_English_Non-membrane_Keyboard
@@ -1126,6 +1122,7 @@ xkb_symbols "chr" {
     name[Group1]= "Cherokee";
     key.type[group1]="ALPHABETIC";
 
+    // Alphanumeric section
     key <TLDE> { [      grave,      U13CA ] };
     key <AE01> { [          1,      U13B1 ] };
     key <AE02> { [          2,      U13C7 ] };
@@ -1176,6 +1173,8 @@ xkb_symbols "chr" {
     key <AB08> { [      comma,      U13E2 ] };
     key <AB09> { [     period,      U13B4 ] };
     key <AB10> { [      U13C2,      U13C9 ] };
+
+    // End alphanumeric section
 };
 
 // Serbian charecters added as third level symbols to US keyboard layout.
@@ -1183,8 +1182,9 @@ xkb_symbols "chr" {
 partial alphanumeric_keys
 xkb_symbols "hbs" {
 
-  include "us"
   name[Group1]= "Serbo-Croatian (US)";
+
+  include "us"
 
   key <TLDE> { [ grave, asciitilde ] };
   key <AE06> { [ 6, dead_caron, asciicircum, asciicircum ] };
@@ -1254,9 +1254,11 @@ xkb_symbols "htcdream" {
 partial alphanumeric_keys
 xkb_symbols "workman" {
 
-    include "us(basic)"
     name[Group1]= "English (Workman)";
 
+    include "us(basic)"
+
+    // Alphanumeric section
     key <AD01> {  [   q,  Q   ] };
     key <AD02> {  [   d,  D   ] };
     key <AD03> {  [   r,  R   ] };
@@ -1286,6 +1288,7 @@ xkb_symbols "workman" {
     key <AB05> {  [   v,  V   ] };
     key <AB06> {  [   k,  K   ] };
     key <AB07> {  [   l,  L   ] };
+    // End alphanumeric section
 
     key <CAPS> { [    BackSpace,       Escape,       BackSpace,        BackSpace ] };
 
@@ -1295,9 +1298,11 @@ xkb_symbols "workman" {
 partial alphanumeric_keys
 xkb_symbols "workman-intl" {
 
-    include "us(intl)"
     name[Group1]= "English (Workman, international with dead keys)";
 
+    include "us(intl)"
+
+    // Alphanumeric section
     key <AD01> { [     q,          Q,    adiaeresis,       Adiaeresis ] };
     key <AD02> { [     d,          D,           eth,              ETH ] };
     key <AD03> { [     r,          R,    registered,       registered ] };
@@ -1327,269 +1332,11 @@ xkb_symbols "workman-intl" {
     key <AB05> { [     v,          V,             v,                V ] };
     key <AB06> { [     k,          K,            oe,               OE ] };
     key <AB07> { [     l,          L,        oslash,         Ooblique ] };
+    // End alphanumeric section
 
     key <CAPS> { [ BackSpace, Escape,     BackSpace,        BackSpace ] };
 
     include "level3(ralt_switch)"
-};
-
-// Norman keyboard layout symbols for xkb on X.Org Server 7.x
-// Written 11/23/2012, revised 3/7/2013 by David Norman http://normanlayout.info
-// To the extent possible under law, the author(s) have dedicated all
-// copyright and related and neighboring rights to this software to the
-// public domain worldwide. This software is distributed without any warranty.
-
-partial alphanumeric_keys
-xkb_symbols "norman" {
-
-    include "us(basic)"
-    name[Group1]= "English (Norman)";
-
-    key <AD01> { [ q, Q ] };
-    key <AD02> { [ w, W ] };
-    key <AD03> { [ d, D ] };
-    key <AD04> { [ f, F ] };
-    key <AD05> { [ k, K ] };
-    key <AD06> { [ j, J ] };
-    key <AD07> { [ u, U ] };
-    key <AD08> { [ r, R ] };
-    key <AD09> { [ l, L ] };
-    key <AD10> { [ semicolon, colon ] };
-
-    key <AC01> { [ a, A ] };
-    key <AC02> { [ s, S ] };
-    key <AC03> { [ e, E ] };
-    key <AC04> { [ t, T ] };
-    key <AC05> { [ g, G ] };
-    key <AC06> { [ y, Y ] };
-    key <AC07> { [ n, N ] };
-    key <AC08> { [ i, I ] };
-    key <AC09> { [ o, O ] };
-    key <AC10> { [ h, H ] };
-
-    key <AB01> { [ z, Z ] };
-    key <AB02> { [ x, X ] };
-    key <AB03> { [ c, C ] };
-    key <AB04> { [ v, V ] };
-    key <AB05> { [ b, B ] };
-    key <AB06> { [ p, P ] };
-    key <AB07> { [ m, M ] };
-
-    key <CAPS> { [ BackSpace ] };
-
-    include "level3(ralt_switch)"
-};
-
-// Carpalx layout created by Martin Krzywinski
-// http://mkweb.bcgsc.ca/carpalx/
-
-partial alphanumeric_keys
-xkb_symbols "carpalx" {
-
-    name[Group1]= "English (Carpalx)";
-
-    key <TLDE> {	[     grave,	asciitilde	]	};
-    key <AE01> {	[	  1,	exclam 		]	};
-    key <AE02> {	[	  2,	at		]	};
-    key <AE03> {	[	  3,	numbersign	]	};
-    key <AE04> {	[	  4,	dollar		]	};
-    key <AE05> {	[	  5,	percent		]	};
-    key <AE06> {	[	  6,	asciicircum	]	};
-    key <AE07> {	[	  7,	ampersand	]	};
-    key <AE08> {	[	  8,	asterisk	]	};
-    key <AE09> {	[	  9,	parenleft	]	};
-    key <AE10> {	[	  0,	parenright	]	};
-    key <AE11> {	[     minus,	underscore	]	};
-    key <AE12> {	[     equal,	plus		]	};
-
-    key <AD01> {	[	  q,	Q 		]	};
-    key <AD02> {	[	  g,	G		]	};
-    key <AD03> {	[	  m,	M		]	};
-    key <AD04> {	[	  l,	L		]	};
-    key <AD05> {	[	  w,	W		]	};
-    key <AD06> {	[	  y,	Y		]	};
-    key <AD07> {	[	  f,	F		]	};
-    key <AD08> {	[	  u,	U		]	};
-    key <AD09> {	[	  b,	B		]	};
-    key <AD10> {	[ semicolon,	colon		]	};
-    key <AD11> {	[ bracketleft,	braceleft	]	};
-    key <AD12> {	[ bracketright,	braceright	]	};
-
-    key <AC01> {	[	  d,	D 		]	};
-    key <AC02> {	[	  s,	S		]	};
-    key <AC03> {	[	  t,	T		]	};
-    key <AC04> {	[	  n,	N		]	};
-    key <AC05> {	[	  r,	R		]	};
-    key <AC06> {	[	  i,	I		]	};
-    key <AC07> {	[	  a,	A		]	};
-    key <AC08> {	[	  e,	E		]	};
-    key <AC09> {	[	  o,	O		]	};
-    key <AC10> {	[	  h,	H		]	};
-    key <AC11> {	[ apostrophe,	quotedbl	]	};
-
-    key <AB01> {	[	  z,	Z 		]	};
-    key <AB02> {	[	  x,	X		]	};
-    key <AB03> {	[	  c,	C		]	};
-    key <AB04> {	[	  v,	V		]	};
-    key <AB05> {	[	  j,	J		]	};
-    key <AB06> {	[	  k,	K		]	};
-    key <AB07> {	[	  p,	P		]	};
-    key <AB08> {	[     comma,	less		]	};
-    key <AB09> {	[    period,	greater		]	};
-    key <AB10> {	[     slash,	question	]	};
-
-    key <BKSL> {	[ backslash,         bar	]	};
-};
-
-// Carpalx layout created by Martin Krzywinski
-// http://mkweb.bcgsc.ca/carpalx/
-// Merged with us(intl) and modified to move
-// accented vowels closer to the plain vowels
-
-partial alphanumeric_keys
-xkb_symbols "carpalx-intl" {
-
-    include "us(carpalx)"
-    name[Group1]= "English (Carpalx, international with dead keys)";
-
-    key <TLDE> { [dead_grave, dead_tilde,         grave,       asciitilde ] };
-    key <AE01> { [	   1,     exclam,    exclamdown,      onesuperior ] };
-    key <AE02> { [	   2,         at,   twosuperior, dead_doubleacute ] };
-    key <AE03> { [	   3, numbersign, threesuperior,      dead_macron ] };
-    key <AE04> { [	   4,     dollar,      currency,         sterling ] };
-    key <AE05> { [	   5,    percent,      EuroSign,     dead_cedilla ] };
-    key <AE06> { [    6, dead_circumflex,    onequarter,      asciicircum ] };
-    key <AE07> { [	   7,  ampersand,       onehalf,	dead_horn ] };
-    key <AE08> { [	   8,   asterisk, threequarters,      dead_ogonek ] };
-    key <AE09> { [	   9,  parenleft, leftsinglequotemark, dead_breve ] };
-    key <AE10> { [	   0, parenright, rightsinglequotemark, dead_abovering ] };
-    key <AE11> { [     minus, underscore,           yen,    dead_belowdot ] };
-    key <AE12> { [     equal,       plus,      multiply,         division ] };
-
-    key <AD01> { [	   q,          Q,        degree,        paragraph ] };
-    key <AD02> { [	   g,          G,         U011F,            U011E ] };
-    key <AD03> { [	   m,          M,            mu,               mu ] };
-    key <AD04> { [	   l,          L,     copyright,             cent ] };
-    key <AD05> { [	   w,          W,             w,                W ] };
-    key <AD06> { [	   y,          Y,    idiaeresis,       Idiaeresis ] };
-    key <AD07> { [	   f,          F,    adiaeresis,       Adiaeresis ] };
-    key <AD08> { [	   u,          U,    udiaeresis,       Udiaeresis ] };
-    key <AD09> { [	   b,          B,    odiaeresis,       Odiaeresis ] };
-    key <AD10> { [ semicolon,      colon,        oslash,         Ooblique ] };
-    key <AD11> { [ bracketleft,  braceleft,  guillemotleft, leftdoublequotemark ] };
-    key <AD12> { [bracketright, braceright, guillemotright, rightdoublequotemark ] };
-
-    key <AC01> { [	   d,          D,           eth,              ETH ] };
-    key <AC02> { [	   s,          S,        ssharp,          section ] };
-    key <AC03> { [	   t,          T,         thorn,            THORN ] };
-    key <AC04> { [	   n,          N,        ntilde,           Ntilde ] };
-    key <AC05> { [	   r,          R,    registered,       registered ] };
-    key <AC06> { [	   i,          I,        iacute,           Iacute ] };
-    key <AC07> { [	   a,          A,        aacute,           Aacute ] };
-    key <AC08> { [	   e,          E,        eacute,           Eacute ] };
-    key <AC09> { [	   o,          O,        oacute,           Oacute ] };
-    key <AC10> { [	   h,          H,        uacute,           Uacute ] };
-    key <AC11> { [dead_acute, dead_diaeresis, apostrophe,        quotedbl ] };
-
-    key <AB01> { [	   z,          Z,             z,                Z ] };
-    key <AB02> { [	   x,          X,         U015F,            U015E ] };
-    key <AB03> { [	   c,          C,      ccedilla,         Ccedilla ] };
-    key <AB04> { [	   v,          V,            ae,               AE ] };
-    key <AB05> { [	   j,          J,            oe,               OE ] };
-    key <AB06> { [	   k,          K,         U0131,            U0130 ] };
-    key <AB07> { [	   p,          P,         aring,            Aring ] };
-    key <AB08> { [     comma,       less,    ediaeresis,       Ediaeresis ] };
-    key <AB09> { [    period,    greater, dead_abovedot,       dead_caron ] };
-    key <AB10> { [     slash,   question,  questiondown,        dead_hook ] };
-    key <BKSL> { [ backslash,        bar,       notsign,        brokenbar ] };
-
-    key <LSGT> { [ backslash,   bar,            backslash,      bar ] };
-
-    include "level3(ralt_switch)"
-};
-
-// Carpalx layout created by Martin Krzywinski
-// http://mkweb.bcgsc.ca/carpalx/
-// Merged with us(intl) and us(altgr-intl) and modified to move
-// accented vowels closer to the plain vowels
-
-partial alphanumeric_keys
-xkb_symbols "carpalx-altgr-intl" {
-
-   include "us(carpalx-intl)"
-   name[Group1]= "English (Carpalx, international AltGr dead keys)";
-
-// five dead keys moved into level3:
-
-   key <TLDE> { [    grave, asciitilde,  dead_grave,   dead_tilde      ] };
-   key <AC11> { [apostrophe,quotedbl,    dead_acute,   dead_diaeresis  ] };
-
-// diversions from the MS Intl keyboard:
-
-   key <AE01> { [        1, exclam,      onesuperior,  exclamdown      ] };
-
-// onequarter etc (not in iso8859-15) moved to get three unshifted deadkeys:
-
-   key <AE06> { [        6, asciicircum, dead_circumflex, onequarter    ] };
-   key <AE07> { [        7, ampersand,   dead_horn,       onehalf       ] };
-   key <AE08> { [        8, asterisk,    dead_ogonek,     threequarters ] };
-
-   include "level3(ralt_switch)"
-};
-
-// Carpalx layout created by Martin Krzywinski
-// Full optimization variant without fixed QWERTY-like ZXCV keys
-// http://mkweb.bcgsc.ca/carpalx/
-
-partial alphanumeric_keys
-xkb_symbols "carpalx-full" {
-
-    include "us(carpalx)"
-    name[Group1]= "English (Carpalx, full optimization)";
-
-    key <AD06> {	[	  b,	B		]	};
-    key <AD07> {	[	  y,	Y		]	};
-    key <AD09> {	[	  v,	V		]	};
-
-    key <AB04> {	[	  f,	F		]	};
-};
-
-// Carpalx layout created by Martin Krzywinski
-// Full optimization variant without fixed QWERTY-like ZXCV keys
-// http://mkweb.bcgsc.ca/carpalx/
-// Merged with us(intl) and modified to move
-// accented vowels closer to the plain vowels
-
-partial alphanumeric_keys
-xkb_symbols "carpalx-full-intl" {
-
-    include "us(carpalx-intl)"
-    name[Group1]= "English (Carpalx, full optimization, international with dead keys)";
-
-    key <AD06> { [	   b,          B,    idiaeresis,       Idiaeresis ] };
-    key <AD07> { [	   y,          Y,    adiaeresis,       Adiaeresis ] };
-    key <AD09> { [	   v,          V,    odiaeresis,       Odiaeresis ] };
-
-    key <AB04> { [	   f,          F,            ae,               AE ] };
-};
-
-// Carpalx layout created by Martin Krzywinski
-// Full optimization variant without fixed QWERTY-like ZXCV keys
-// http://mkweb.bcgsc.ca/carpalx/
-// Merged with us(intl) and us(altgr-intl) and modified to move
-// accented vowels closer to the plain vowels
-
-partial alphanumeric_keys
-xkb_symbols "carpalx-full-altgr-intl" {
-
-   include "us(carpalx-altgr-intl)"
-   name[Group1]= "English (Carpalx, full optimization, international AltGr dead keys)";
-
-    key <AD06> { [	   b,          B,    idiaeresis,       Idiaeresis ] };
-    key <AD07> { [	   y,          Y,    adiaeresis,       Adiaeresis ] };
-    key <AD09> { [	   v,          V,    odiaeresis,       Odiaeresis ] };
-
-    key <AB04> { [	   f,          F,            ae,               AE ] };
 };
 
 // EXTRAS:
@@ -1597,7 +1344,6 @@ xkb_symbols "carpalx-full-altgr-intl" {
 // Czech, Slovak and German charecters added as third level symbols to US keyboard layout.
 partial alphanumeric_keys
 xkb_symbols "cz_sk_de" {
-
     include "us"
     name[Group1]="Czech Slovak and German (US)";
 
@@ -1614,7 +1360,7 @@ xkb_symbols "cz_sk_de" {
     key <AE10>	{ [    0,   parenright, eacute,	    Eacute	] };
     key <AE11>	{ [minus,   underscore, ssharp,     0x1001E9E	] };
     key <AE12>	{ [equal,	  plus, dead_acute, dead_caron  ] };
-
+    
     key <AD03>	{ [         e,          E,     EuroSign,     Eacute ]	};
 
     key <AD11>	{ [bracketleft, braceleft,   udiaeresis,   Udiaeresis ]	};
@@ -1729,10 +1475,11 @@ xkb_symbols "alt-intl-unicode" {
 
 };
 
-partial alphanumeric_keys
+partial alphanumeric_keys  
 xkb_symbols "ats" {
 
     include "us"
+
     name[Group1]= "Atsina";
 
     //Using Dead key to get COMBINING COMMA ABOVE for ejectives on
@@ -1749,6 +1496,7 @@ xkb_symbols "ats" {
 
     key <AC01> { [ a, A, aacute, Aacute  ] };
 
+
     //Small letter Open use compose to key get acute accent
     key <AB03> { [ c,	C, U0254, U0186		  ] };
     key <AB08> { [ comma,     less, U0313 ] };
@@ -1762,24 +1510,28 @@ partial alphanumeric_keys
 xkb_symbols "crd" {
 
   include "us"
-  name[Group1]= "Coeur d'Alene Salish";
 
-  key <AD02> { [         w,           W, U02B7, U02B7 ] };
-  key <AE07> { [         7,   ampersand, U0294        ] };
-  key <AD01> { [         q,           Q, U221A        ] };
-  key <AB04> { [         v,           V, U0259        ] };
-  key <BKSL> { [ backslash,         bar, U026B        ] };
-  key <AD03> { [         e,           E, U025B        ] };
-  key <AD08> { [         i,           I, U026A        ] };
-  key <AC07> { [         j,           J, U01F0        ] };
-  key <AE06> { [         6, asciicircum, U0295        ] };
-  key <AC02> { [         s,           S, U0161        ] };
-  key <AB03> { [         c,           C, U010D        ] };
-  key <AD09> { [         o,           O, U0254        ] };
-  key <AB09> { [    period,     greater, U0323        ] };
+  name[Group1]= "Couer D'alene Salish";
+
+  // Alphanumeric section
+  key <AD02> { [         w,           W, U02B7, U02B7 ] }; 
+  key <AE07> { [         7,   ampersand, U0294        ] }; 
+  key <AD01> { [         q,           Q, U221A        ] }; 
+  key <AB04> { [         v,           V, U0259        ] }; 
+  key <BKSL> { [ backslash,         bar, U026B        ] }; 
+  key <AD03> { [         e,           E, U025B        ] }; 
+  key <AD08> { [         i,           I, U026A        ] }; 
+  key <AC07> { [         j,           J, U01F0        ] }; 
+  key <AE06> { [         6, asciicircum, U0295        ] }; 
+  key <AC02> { [         s,           S, U0161        ] }; 
+  key <AB03> { [         c,           C, U010D        ] }; 
+  key <AD09> { [         o,           O, U0254        ] }; 
+  key <AB09> { [    period,     greater, U0323        ] }; 
 
   include "level3(ralt_switch)"
   include "compose(rctrl)"
+
+  // End alphanumeric section
 };
 
 
