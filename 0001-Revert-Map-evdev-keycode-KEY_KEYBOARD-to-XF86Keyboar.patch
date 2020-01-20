@@ -1,0 +1,39 @@
+From b8b0550a6bfb5fdbd90f6d50e4707f5fd50b6ba3 Mon Sep 17 00:00:00 2001
+From: Peter Hutterer <peter.hutterer@who-t.net>
+Date: Wed, 6 Jun 2018 12:59:57 +1000
+Subject: [PATCH xkeyboard-config 1/2] Revert "Map evdev keycode KEY_KEYBOARD
+ to XF86Keyboard"
+
+This reverts commit d0e5e63cf59be444bec0e5b11838a9abce45226d.
+---
+ keycodes/evdev | 1 -
+ symbols/inet   | 1 -
+ 2 files changed, 2 deletions(-)
+
+diff --git a/keycodes/evdev b/keycodes/evdev
+index 90b8278..f2630ff 100644
+--- a/keycodes/evdev
++++ b/keycodes/evdev
+@@ -285,7 +285,6 @@ default xkb_keycodes "evdev" {
+ 	<I255> = 255;	// #define KEY_RFKILL              247
+ 
+ 	<I372> = 372;   // #define KEY_FAVORITES           364
+-	<I374> = 374;   // #define KEY_KEYBOARD            366
+ 
+ 	// Fake keycodes for virtual keys
+ 	<LVL3> =   92;
+diff --git a/symbols/inet b/symbols/inet
+index bc4aaa3..5176e52 100644
+--- a/symbols/inet
++++ b/symbols/inet
+@@ -219,7 +219,6 @@ xkb_symbols "evdev" {
+     key <I255>   {      [ XF86RFKill            ]       }; // KEY_RFKILL
+ 
+     key <I372>  {       [ XF86Favorites          ]       };
+-    key <I374>  {       [ XF86Keyboard           ]       };
+ 
+     key <FK13>   {      [ XF86Tools         ]       };
+     key <FK14>   {      [ XF86Launch5       ]       };
+-- 
+2.14.4
+

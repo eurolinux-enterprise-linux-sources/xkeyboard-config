@@ -6,7 +6,7 @@
 
 Summary: X Keyboard Extension configuration data
 Name: xkeyboard-config
-Version: 2.20
+Version: 2.24
 Release: 1%{?gitdate:.%{gitdate}git%{gitversion}}%{?dist}
 License: MIT
 Group: User Interface/X
@@ -20,6 +20,9 @@ Source0: http://xorg.freedesktop.org/archive/individual/data/xkeyboard-config/%{
 %endif
 
 Patch01: 0001-Revert-rules-Move-Finnish-DAS-layout-to-extras.patch
+# Keycodes > 255 cannot be parsed by xkbcomp < 1.4.0
+Patch02: 0001-Revert-Map-evdev-keycode-KEY_KEYBOARD-to-XF86Keyboar.patch
+Patch03: 0002-Revert-Map-evdev-keycode-KEY_FAVORITES-to-XF86Favori.patch
 
 BuildArch: noarch
 
@@ -111,6 +114,13 @@ rm -f $RPM_BUILD_ROOT%{_datadir}/X11/xkb/compiled
 %{_datadir}/pkgconfig/xkeyboard-config.pc
 
 %changelog
+* Wed Jun 06 2018 Peter Hutterer <peter.hutterer@redhat.com> 2.24-1
+- xkeyboard-config 2.24 (#1564615)
+- Revert the high-keycode patches to avoid conflicts with xkbcomp < 1.4
+
+* Tue May 15 2018 Peter Hutterer <peter.hutterer@redhat.com> 2.23.1-1
+- xkeyboard-config 2.23.1 (#1564615)
+
 * Wed Feb 08 2017 Peter Hutterer <peter.hutterer@redhat.com> 2.20-1
 - xkeyboard-config 2.20 (#1401753)
 
