@@ -6,7 +6,7 @@
 
 Summary: X Keyboard Extension configuration data
 Name: xkeyboard-config
-Version: 2.14
+Version: 2.20
 Release: 1%{?gitdate:.%{gitdate}git%{gitversion}}%{?dist}
 License: MIT
 Group: User Interface/X
@@ -18,6 +18,8 @@ Source2:    commitid
 %else
 Source0: http://xorg.freedesktop.org/archive/individual/data/xkeyboard-config/%{name}-%{version}.tar.bz2
 %endif
+
+Patch01: 0001-Revert-rules-Move-Finnish-DAS-layout-to-extras.patch
 
 BuildArch: noarch
 
@@ -109,6 +111,9 @@ rm -f $RPM_BUILD_ROOT%{_datadir}/X11/xkb/compiled
 %{_datadir}/pkgconfig/xkeyboard-config.pc
 
 %changelog
+* Wed Feb 08 2017 Peter Hutterer <peter.hutterer@redhat.com> 2.20-1
+- xkeyboard-config 2.20 (#1401753)
+
 * Tue Jun 16 2015 Peter Hutterer <peter.hutterer@redhat.com> 2.14-1
 - xkeyboard-config 2.14 (#1194871)
 

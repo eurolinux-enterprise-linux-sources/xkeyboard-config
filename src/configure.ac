@@ -1,7 +1,6 @@
-AC_INIT(xkeyboard-config, 2.14)
+AC_INIT(xkeyboard-config, 2.20)
 AC_CONFIG_SRCDIR(rules/base.xml.in)
 AM_INIT_AUTOMAKE([foreign dist-bzip2])
-AM_MAINTAINER_MODE
 
 # Require X.Org macros 1.12 or later for XORG_WITH_XSLTPROC
 m4_ifndef([XORG_MACROS_VERSION],
@@ -93,6 +92,7 @@ symbols/Makefile
 symbols/digital_vndr/Makefile
 symbols/fujitsu_vndr/Makefile
 symbols/hp_vndr/Makefile
+symbols/jolla_vndr/Makefile
 symbols/macintosh_vndr/Makefile
 symbols/nec_vndr/Makefile
 symbols/nokia_vndr/Makefile

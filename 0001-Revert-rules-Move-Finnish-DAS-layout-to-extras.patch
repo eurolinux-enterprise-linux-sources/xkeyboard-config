@@ -1,0 +1,48 @@
+From af984bd5ac9041090ead4d3461c081d045d8608b Mon Sep 17 00:00:00 2001
+From: Peter Hutterer <peter.hutterer@who-t.net>
+Date: Mon, 5 Dec 2016 10:33:04 +1000
+Subject: [PATCH] Revert "rules: Move Finnish DAS layout to extras"
+
+This reverts commit d4d906d28b135a30b3761c263f0e9aff5da809d5.
+---
+ rules/base.extras.xml.in | 6 ------
+ rules/base.xml.in        | 6 ++++++
+ 2 files changed, 6 insertions(+), 6 deletions(-)
+
+diff --git a/rules/base.extras.xml.in b/rules/base.extras.xml.in
+index f95f44d..4fd7d20 100644
+--- a/rules/base.extras.xml.in
++++ b/rules/base.extras.xml.in
+@@ -660,12 +660,6 @@
+       <variantList>
+         <variant>
+           <configItem>
+-            <name>das</name>
+-            <_description>Finnish (DAS)</_description>
+-          </configItem>
+-        </variant>
+-        <variant>
+-          <configItem>
+             <name>sun_type6</name>
+             <_description>Finnish (Sun Type 6/7)</_description>
+           </configItem>
+diff --git a/rules/base.xml.in b/rules/base.xml.in
+index ffa70eb..d1c1393 100644
+--- a/rules/base.xml.in
++++ b/rules/base.xml.in
+@@ -2720,6 +2720,12 @@
+             <_description>Finnish (Macintosh)</_description>
+           </configItem>
+         </variant>
++        <variant>
++          <configItem>
++            <name>das</name>
++            <_description>Finnish (DAS)</_description>
++          </configItem>
++        </variant>
+       </variantList>
+     </layout>
+     <layout>
+-- 
+2.9.3
+
